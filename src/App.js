@@ -1,5 +1,5 @@
 import './App.css';
-
+import React, { useState } from 'react';
 import SearchBar from "./components/SearchBar"
 import ProductTable from "./components/ProductTable"
 
@@ -14,17 +14,29 @@ const PRODUCTS = [
 ]
 
 function FilterableProductTable({ products }) {
-  return(
+  const [filterText, setFilterText] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
+
+  return (
     <div>
-      <SearchBar />
-      <ProductTable products={products} />
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange = {setFilterText}
+        onInStockOnlyChange ={setInStockOnly}
+      />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
     </div>
   );
 };
 
 
 function App() {
-  return <FilterableProductTable products={PRODUCTS}/>;
+  return <FilterableProductTable products={PRODUCTS} />;
 }
 
 export default App;
